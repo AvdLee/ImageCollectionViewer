@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/QuartzCore.h>
 #import "AJZoomedImageSrollView.h"
+#import "AJCacheHelper.h"
+#import "AJDownloadManager.h"
 
 #pragma mark -
 
@@ -53,7 +55,27 @@
 
 - (void)setImage:(AJImage *)image {
     _image = image;
-    [self displayImage:image];
+    
+    UIImage *cachedLargeImage = [[AJCacheHelper sharedInstance] cachedImageForURL:[_image largeImgUrl]];
+    UIImage *cachedSmallImage = [[AJCacheHelper sharedInstance] cachedImageForURL:[_image smallImgUrl]];
+    
+    if(cachedLargeImage){
+        [self displayImage:cachedLargeImage];
+    } else if(cachedSmallImage){
+        [self displayImage:cachedSmallImage];
+        [self downloadLargeImage];
+    } else {
+        [self downloadLargeImage];
+    }
+}
+
+- (void)downloadLargeImage
+{
+    [AJDownloadManager getImageFromURL:[_image largeImgUrl] success:^(UIImage *image) {
+        if(!_animatingIn){
+            [self displayImage:image];   
+        }
+    }];
 }
 
 - (void)setIndex:(NSUInteger)index
@@ -204,9 +226,12 @@
                      completion:^(BOOL finished){
                          _animatingIn = false;
                          
+                         UIImage *cachedLargeImage = [[AJCacheHelper sharedInstance] cachedImageForURL:[_image largeImgUrl]];
+                         UIImage *cachedSmallImage = [[AJCacheHelper sharedInstance] cachedImageForURL:[_image smallImgUrl]];
+                         
                          // If large image is downloaded, but not set yet
-                         if(_zoomView.image == [_image cachedSmallImage] && [_image cachedLargeImage]){
-                             [self displayImage:_image];
+                         if(_zoomView.image == cachedSmallImage && cachedLargeImage){
+                             [self displayImage:cachedLargeImage];
                          }
                          [_zoomedImageScrollViewDelegate zoomedImageScrollViewDidEndAnimating];
                      }];
@@ -229,54 +254,63 @@
 }
 
 #pragma mark - Configure scrollView to display new image (tiled or not)
-- (void)displayImage:(AJImage *)image
+- (void)displayImage:(UIImage *)image
 {
-    // set bounds
+    // Set bounds
     self.bounds = self.frame;
     
-    // clear the previous image
+    // Clear the previous image
     [_zoomView removeFromSuperview];
     _zoomView = nil;
     
-    // reset our zoomScale to 1.0 before doing any further calculations
+    // Reset our zoomScale to 1.0 before doing any further calculations
     self.zoomScale = 1.0;
     
-    // make weak copies
-    __weak AJImage *weakImage = _image;
+    // Set image to zoomview
+    _zoomView = [[UIImageView alloc] initWithImage:image];
     
-    if([_image cachedLargeImage]){
-        _zoomView = [[UIImageView alloc] initWithImage:[_image cachedLargeImage]];
-
-        [self addSubview:_zoomView];
-        [self configureForImageSize:[_image cachedLargeImage].size];      
-        
-    } else {
-        _zoomView = [[UIImageView alloc] initWithImage:[_image cachedSmallImage]];
-        
-        [self addSubview:_zoomView];
-        [self configureForImageSize:[_image cachedSmallImage].size];
-        
-        dispatch_async(dispatch_get_global_queue(0,0), ^{
-            NSData * data = [[NSData alloc] initWithContentsOfURL: [weakImage largeImgUrl]];
-            if ( data == nil )
-                return;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [_image setCachedLargeImage:[UIImage imageWithData:data]];
-                
-                if(!_animatingIn){
-                    [self displayImage:_image];
-                }
-            });
-        });
-    }
-}
-
-- (void)configureForImageSize:(CGSize)imageSize
-{
     // Set zoomView properties
     [_zoomView setContentMode: UIViewContentModeScaleAspectFill];
     [_zoomView setClipsToBounds:YES];
     
+    // Add to view
+    [self addSubview:_zoomView];
+    
+    // Configure for size
+    [self configureForImageSize:_zoomView.image.size];
+    
+    // make weak copies
+    //__weak AJImage *weakImage = _image;
+    
+    /*if([_image cachedLargeImage]){
+     _zoomView = [[UIImageView alloc] initWithImage:[_image cachedLargeImage]];
+     
+     [self addSubview:_zoomView];
+     [self configureForImageSize:[_image cachedLargeImage].size];
+     
+     } else {
+     _zoomView = [[UIImageView alloc] initWithImage:[_image cachedSmallImage]];
+     
+     [self addSubview:_zoomView];
+     [self configureForImageSize:[_image cachedSmallImage].size];
+     
+     dispatch_async(dispatch_get_global_queue(0,0), ^{
+     NSData * data = [[NSData alloc] initWithContentsOfURL: [weakImage largeImgUrl]];
+     if ( data == nil )
+     return;
+     dispatch_async(dispatch_get_main_queue(), ^{
+     [_image setCachedLargeImage:[UIImage imageWithData:data]];
+     
+     if(!_animatingIn){
+     [self displayImage:_image];
+     }
+     });
+     });
+     }*/
+}
+
+- (void)configureForImageSize:(CGSize)imageSize
+{
     _imageSize = imageSize;
     
     [self setContentSize:imageSize];

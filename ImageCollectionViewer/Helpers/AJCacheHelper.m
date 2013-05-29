@@ -10,6 +10,21 @@
 
 @implementation AJCacheHelper
 
+static AJCacheHelper *sharedInstance = nil;
+
++ (AJCacheHelper *)sharedInstance {
+    if (nil != sharedInstance) {
+        return sharedInstance;
+    }
+    
+    static dispatch_once_t pred;        // Lock
+    dispatch_once(&pred, ^{             // This code is called at most once per app
+        sharedInstance = [[AJCacheHelper alloc] init];
+    });
+    
+    return sharedInstance;
+}
+
 - (UIImage *)cachedImageForURL:(NSURL *)url {
     return [self objectForKey:[url absoluteString]];
 }

@@ -11,7 +11,7 @@
 @interface AJCacheHelper : NSCache
 
 #pragma mark - Singleton instance
-//+ (id)sharedInstance;
++ (id)sharedInstance;
 
 #pragma mark - Cache methods
 - (UIImage *)cachedImageForURL:(NSURL *)url;

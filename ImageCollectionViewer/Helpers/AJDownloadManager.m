@@ -8,18 +8,32 @@
 
 #import "AJDownloadManager.h"
 #import "AFHTTPRequestOperation.h"
+#import "AJCacheHelper.h"
 
 @implementation AJDownloadManager
 
 + (void)getImageFromURL:(NSURL *)imageURL success:(void (^)(UIImage *image))success {
-    NSURLRequest *request = [NSURLRequest requestWithURL:imageURL];
+    // Check if item is in cache
+    UIImage *cachedImage = [[AJCacheHelper sharedInstance] cachedImageForURL:imageURL];
     
+    if(cachedImage){
+        success(cachedImage);
+        return;
+    }
+    
+    // Image is not cached, get it
+    NSURLRequest *request = [NSURLRequest requestWithURL:imageURL];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if(responseObject!= NULL){
             if([[[operation.request URL] absoluteString] isEqualToString:[imageURL absoluteString]]){
-                success([UIImage imageWithData:responseObject]);
+                UIImage *image = [UIImage imageWithData:responseObject];
+                
+                // Set cached item
+                [[AJCacheHelper sharedInstance] cacheImage:image forURL:[operation.request URL]];
+                
+                success(image);
             }
             
         }

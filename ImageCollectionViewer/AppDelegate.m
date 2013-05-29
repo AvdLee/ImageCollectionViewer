@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PhotoViewController.h"
 
 @implementation AppDelegate
 

@@ -8,6 +8,15 @@
 #warning "This project uses features only available in iOS SDK 5.0 and later."
 #endif
 
+#define LogRect(RECT) NSLog(@"%s: %@", #RECT, NSStringFromCGRect(RECT));
+#define LogRectWithMessage(MESSAGE,RECT) NSLog(@"[%@] %s: %@", MESSAGE, #RECT, NSStringFromCGRect(RECT));
+
+#define LogSize(SIZE) NSLog(@"%s: %@", #SIZE, NSStringFromCGSize(SIZE));
+#define LogSizeWithMessage(MESSAGE,SIZE) NSLog(@"[%@] %s: %@", MESSAGE, #SIZE, NSStringFromCGSize(SIZE));
+
+#define LogPoint(POINT) NSLog(@"%s: %@", #POINT, NSStringFromCGPoint(POINT));
+#define LogPointWithMessage(MESSAGE,POINT) NSLog(@"[%@] %s: %@", MESSAGE, #POINT, NSStringFromCGPoint(POINT));
+
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>

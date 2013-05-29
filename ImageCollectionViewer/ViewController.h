@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AJImageCollectionViewController.h"
 
 @interface ViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIScrollView *albumsScrollview;
 
 @end

@@ -164,17 +164,15 @@
     if(self.minimumZoomScale == self.maximumZoomScale) return;
     
     if (self.zoomScale == self.minimumZoomScale){
-        CGPoint pointInView = [recognizer locationInView:self];
+        CGPoint pointInView = [recognizer locationInView:_zoomView];
         CGFloat newZoomscal = self.maximumZoomScale;
         
         CGSize scrollViewSize = self.bounds.size;
         
         CGFloat w = scrollViewSize.width / newZoomscal;
         CGFloat h = scrollViewSize.height / newZoomscal;
-        CGFloat x = pointInView.x;
-        CGFloat y = pointInView.y;
-        
-        NSLog(@"Zoomscale now is %f minimum %f max %f", self.zoomScale, self.minimumZoomScale, self.maximumZoomScale);
+        CGFloat x = pointInView.x - (scrollViewSize.width/2);
+        CGFloat y = pointInView.y - (scrollViewSize.height/2);
         
         CGRect rectTozoom = CGRectMake(x, y, w, h);
         [self zoomToRect:rectTozoom animated:YES];
@@ -275,19 +273,15 @@
 
 - (void)configureForImageSize:(CGSize)imageSize
 {
-    // Set some properties
+    // Set zoomView properties
     [_zoomView setContentMode: UIViewContentModeScaleAspectFill];
     [_zoomView setClipsToBounds:YES];
     
     _imageSize = imageSize;
     
-    //NSLog(@"imageSize is w %f h %f", imageSize.width, imageSize.height);
-    self.contentSize = imageSize;
-    
+    [self setContentSize:imageSize];
     [self setMaxMinZoomScalesForCurrentBounds];
-    NSLog(@"Minscale default %f", self.minimumZoomScale);
-    self.zoomScale = self.minimumZoomScale;
-    
+    [self setZoomScale:self.minimumZoomScale];
 }
 
 - (void)setMaxMinZoomScalesForCurrentBounds

@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AJCacheHelper : NSObject
+@interface AJCacheHelper : NSCache
+
+#pragma mark - Singleton instance
+//+ (id)sharedInstance;
+
+#pragma mark - Cache methods
+- (UIImage *)cachedImageForURL:(NSURL *)url;
+- (void)cacheImage:(UIImage *)image forURL:(NSURL *)url;
 
 @end

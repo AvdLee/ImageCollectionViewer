@@ -10,4 +10,13 @@
 
 @implementation AJCacheHelper
 
+- (UIImage *)cachedImageForURL:(NSURL *)url {
+    return [self objectForKey:[url absoluteString]];
+}
+
+- (void)cacheImage:(UIImage *)image forURL:(NSURL *)url {
+    if (image && url) {
+        [self setObject:image forKey:[url absoluteString]];
+    }
+}
 @end

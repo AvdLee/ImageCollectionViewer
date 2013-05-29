@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "ImageCollectionViewer/AJImageCollectionViewer/AJZoomedView/AJZoomedImageSrollView.m"
-         timestampString = "391514384.480024"
+         timestampString = "391520711.541291"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "343"
-         endingLineNumber = "343"
+         startingLineNumber = "339"
+         endingLineNumber = "339"
          landmarkName = "-recoverFromResizing"
          landmarkType = "5">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "ImageCollectionViewer/AJImageCollectionViewer/AJZoomedView/AJZoomedImageSrollView.m"
-         timestampString = "391514384.480024"
+         timestampString = "391520711.541291"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "330"
-         endingLineNumber = "330"
+         startingLineNumber = "326"
+         endingLineNumber = "326"
          landmarkName = "-prepareToResize"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "ImageCollectionViewer/AJImageCollectionViewer/AJZoomedView/AJZoomedImageSrollView.m"
-         timestampString = "391514384.480024"
+         timestampString = "391520711.541291"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "395"
-         endingLineNumber = "395"
+         startingLineNumber = "391"
+         endingLineNumber = "391"
          landmarkName = "-resizeZoomViewToImageRatio"
          landmarkType = "5">
       </FileBreakpoint>

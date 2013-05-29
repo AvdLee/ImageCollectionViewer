@@ -8,18 +8,19 @@
 
 #import "AJImageContainer.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIButton+AJCache.h"
 
 @implementation AJImageContainer
-
 @synthesize collectionImageButton;
 
 - (id)initWithImage:(AJImage *)image
 {
     if (self = [super initWithNibName:@"AJImageContainer" bundle:nil]) {
-        // Custom initialization
+        // Set shadow        
         [self setShadowForImageContainer];
-        [image setImageToButton:collectionImageButton];
-        //[collectionImageButton setImage:[image image]  forState:UIControlStateNormal];
+        
+        // Set image to button
+        [collectionImageButton setImageFromUrl:[image smallImgUrl]];
     }
     return self;
 }
@@ -32,4 +33,5 @@
     [layer setShadowRadius:1.5];
     [layer setShadowOpacity:0.4];
 }
+
 @end

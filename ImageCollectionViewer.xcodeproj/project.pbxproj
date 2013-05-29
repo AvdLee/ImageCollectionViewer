@@ -41,6 +41,8 @@
 		841570E9175603150061C4C9 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 841570E0175603150061C4C9 /* UIImageView+AFNetworking.m */; };
 		841570EB175603BC0061C4C9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841570EA175603BC0061C4C9 /* SystemConfiguration.framework */; };
 		841570ED175603CC0061C4C9 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841570EC175603CC0061C4C9 /* MobileCoreServices.framework */; };
+		841570F9175625E50061C4C9 /* UIButton+AJCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 841570F8175625E50061C4C9 /* UIButton+AJCache.m */; };
+		841570FC175628D80061C4C9 /* AJDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 841570FB175628D80061C4C9 /* AJDownloadManager.m */; };
 		84605F0C173FC4B0004D69C0 /* left_arrow_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 84605F08173FC4B0004D69C0 /* left_arrow_white.png */; };
 		84605F0D173FC4B0004D69C0 /* left_arrow_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84605F09173FC4B0004D69C0 /* left_arrow_white@2x.png */; };
 		84605F0E173FC4B0004D69C0 /* right_arrow_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 84605F0A173FC4B0004D69C0 /* right_arrow_white.png */; };
@@ -117,6 +119,10 @@
 		841570E0175603150061C4C9 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		841570EA175603BC0061C4C9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		841570EC175603CC0061C4C9 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		841570F7175625E50061C4C9 /* UIButton+AJCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+AJCache.h"; sourceTree = "<group>"; };
+		841570F8175625E50061C4C9 /* UIButton+AJCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+AJCache.m"; sourceTree = "<group>"; };
+		841570FA175628D80061C4C9 /* AJDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJDownloadManager.h; sourceTree = "<group>"; };
+		841570FB175628D80061C4C9 /* AJDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJDownloadManager.m; sourceTree = "<group>"; };
 		84605F08173FC4B0004D69C0 /* left_arrow_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left_arrow_white.png; sourceTree = "<group>"; };
 		84605F09173FC4B0004D69C0 /* left_arrow_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left_arrow_white@2x.png"; sourceTree = "<group>"; };
 		84605F0A173FC4B0004D69C0 /* right_arrow_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_arrow_white.png; sourceTree = "<group>"; };
@@ -209,6 +215,7 @@
 		8406DDE017283AAB009AE5CC /* ImageCollectionViewer */ = {
 			isa = PBXGroup;
 			children = (
+				841570F6175625DC0061C4C9 /* Categories */,
 				841570B01753D9DE0061C4C9 /* Helpers */,
 				8406DE0517283F7D009AE5CC /* Resources */,
 				8497BDF4174272BE007CBB53 /* FBAlbums */,
@@ -283,6 +290,8 @@
 			children = (
 				841570B11753D9F30061C4C9 /* AJCacheHelper.h */,
 				841570B21753D9F30061C4C9 /* AJCacheHelper.m */,
+				841570FA175628D80061C4C9 /* AJDownloadManager.h */,
+				841570FB175628D80061C4C9 /* AJDownloadManager.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -311,6 +320,15 @@
 				841570E0175603150061C4C9 /* UIImageView+AFNetworking.m */,
 			);
 			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		841570F6175625DC0061C4C9 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				841570F7175625E50061C4C9 /* UIButton+AJCache.h */,
+				841570F8175625E50061C4C9 /* UIButton+AJCache.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		8497BDF4174272BE007CBB53 /* FBAlbums */ = {
@@ -497,6 +515,8 @@
 				841570E7175603150061C4C9 /* AFURLConnectionOperation.m in Sources */,
 				841570E8175603150061C4C9 /* AFXMLRequestOperation.m in Sources */,
 				841570E9175603150061C4C9 /* UIImageView+AFNetworking.m in Sources */,
+				841570F9175625E50061C4C9 /* UIButton+AJCache.m in Sources */,
+				841570FC175628D80061C4C9 /* AJDownloadManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,13 +14,14 @@
 @protocol AJZoomedImageCollectionViewDelegate
 @required
 - (void)zoomedImagePageViewControllerSwitchedToIndex:(NSUInteger)index;
+- (CGRect)returnThumbFrameForIndex:(NSUInteger) index;
 @end
 
 @interface AJZoomedImageCollectionViewController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate, AJZoomedImageSrollViewDelegate>
 
 #pragma mark - Variables
-@property CGRect selectedImageSmallFrame;
-@property (nonatomic, weak)     id delegate;
+@property (nonatomic, weak)     id zoomedImageCollectionDelegate;
+@property (assign, nonatomic)   NSUInteger currentPageIndex;
 @property (strong, nonatomic)   IBOutlet UILabel *imageTitle;
 @property (strong, nonatomic)   IBOutlet UIPageViewController *imagesPageViewController;
 
@@ -34,6 +35,6 @@
 
 
 #pragma mark - Functions
-+ (AJZoomedImageCollectionViewController *)initWithImageCollection:(AJImageCollection *)imageCollection selectedIndex:(NSUInteger)index selectedImageFrame:(CGRect)frame;
++ (AJZoomedImageCollectionViewController *)initWithImageCollection:(AJImageCollection *)imageCollection selectedIndex:(NSUInteger)index delegate:(id)delegate;
 
 @end

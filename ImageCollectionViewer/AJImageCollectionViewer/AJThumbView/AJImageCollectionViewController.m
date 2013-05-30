@@ -12,6 +12,7 @@
 
 @interface AJImageCollectionViewController (){
     AJImageCollection *_imageCollection;
+    UIInterfaceOrientation _currentOrientation;
 }
 @end
 
@@ -39,6 +40,9 @@
     [imageCollectionScrollView setContentSize:CGSizeMake((tempImageContainer.view.frame.size.width+THUMBS_SPACING)*[_imageCollection.images count], tempImageContainer.view.frame.size.height)];
     [imageCollectionScrollView setContentOffset:CGPointMake(-SCROLLVIEW_INSET, 0)];
     [imageCollectionScrollView setContentInset:UIEdgeInsetsMake(0, SCROLLVIEW_INSET, 0, 0)];
+    
+    // set orientation
+    _currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
 }
 
 #pragma mark - Images Initialisation
@@ -56,7 +60,9 @@
     float currentOffset = imageCollectionScrollView.contentOffset.x + SCROLLVIEW_INSET;
     float widthPerObject = imageCollectionScrollView.contentSize.width / [_imageCollection.images count];
     int currentCenterIndex = floor((currentOffset + (SCREEN_WIDTH/2)) / widthPerObject);
-    int beforeAndAfterCount = floor(SCREEN_WIDTH / widthPerObject);
+            
+    float biggestSize = MAX(SCREEN_WIDTH, SCREEN_HEIGHT);
+    int beforeAndAfterCount = floor(biggestSize / widthPerObject);
     
     for (int i=0; i < [_imageCollection.images count]; i++){
         AJImageContainer *tempContainer = [imageThumbsCollection valueForKey:[NSString stringWithFormat:@"%u", i]];
@@ -75,13 +81,16 @@
 #pragma mark - Image methods
 - (IBAction)collectionImageClicked:(id)sender {
     UIButton *button = sender;
-    CGRect frame = [self returnAbsoluteFrameForButton:button];
-    zoomedImageCollectionViewController = [AJZoomedImageCollectionViewController initWithImageCollection:_imageCollection selectedIndex:button.tag selectedImageFrame:frame];
-    [zoomedImageCollectionViewController setDelegate:self];
-    
+    zoomedImageCollectionViewController = [AJZoomedImageCollectionViewController initWithImageCollection:_imageCollection selectedIndex:button.tag delegate:self];
+        
     [zoomedImageCollectionViewController.view setFrame:[self returnAbsoluteScreenFrame]];
     
-    [[[UIApplication sharedApplication] keyWindow] addSubview:zoomedImageCollectionViewController.view];
+    UIWindow* window = [UIApplication sharedApplication].keyWindow;
+    if (!window)
+        window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+    [[[window subviews] objectAtIndex:0] addSubview:zoomedImageCollectionViewController.view];
+    
+    //[[[UIApplication sharedApplication] keyWindow] addSubview:zoomedImageCollectionViewController.view];
 }
 
 - (CGRect) returnAbsoluteFrameForButton:(UIButton *)button {
@@ -91,7 +100,8 @@
     
     // If navigation bar enabled
     if(!self.parentViewController.navigationController.navigationBarHidden){
-        y += 44;
+        UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+        y += (UIInterfaceOrientationIsPortrait(interfaceOrientation) ? 44 : 32);
     }
     
     return CGRectMake(x, y, button.frame.size.width, button.frame.size.height);
@@ -99,7 +109,18 @@
 
 - (CGRect) returnAbsoluteScreenFrame {
     CGRect frame = self.view.bounds;
-    frame.origin.y =  [UIScreen mainScreen].bounds.size.height - self.view.bounds.size.height;
+    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+    
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    if(UIInterfaceOrientationIsPortrait(interfaceOrientation)){
+        return appFrame;
+    } else {
+        frame.size.height = appFrame.size.width;
+        frame.size.width = appFrame.size.height;
+        frame.origin.y = ([UIApplication sharedApplication].statusBarHidden ? 0 : 20);
+    }
+    
     return frame;
 }
 
@@ -122,7 +143,29 @@
     }
     
     [imageCollectionScrollView scrollRectToVisible:selectedImageContainerFrame animated:FALSE];
-    [zoomedImageCollectionViewController setSelectedImageSmallFrame:[self returnAbsoluteFrameForButton:selectedImageView.collectionImageButton]];
 }
 
+- (CGRect)returnThumbFrameForIndex:(NSUInteger)index {
+    AJImageContainer *selectedImageView = [imageThumbsCollection objectForKey:[NSString stringWithFormat:@"%u",index]];
+    return [self returnAbsoluteFrameForButton:selectedImageView.collectionImageButton];
+}
+
+#pragma mark - Rotation methods
+- (void)viewWillLayoutSubviews {
+    [self checkIfOrientationChanged];
+}
+
+- (void)checkIfOrientationChanged {
+    UIInterfaceOrientation newOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    BOOL newOrientationIsPortrait = UIInterfaceOrientationIsPortrait(newOrientation);
+    BOOL oldOrientationIsPortrait = UIInterfaceOrientationIsPortrait(_currentOrientation);
+    
+    if(newOrientationIsPortrait != oldOrientationIsPortrait){
+        _currentOrientation = newOrientation;
+        [self refreshScrollView];
+        if(zoomedImageCollectionViewController){
+            [self scrollToMakeSelectedImageVisibleForSelectedIndex:zoomedImageCollectionViewController.currentPageIndex];
+        }
+    }
+}
 @end

@@ -119,6 +119,7 @@
     [tempICVController.view setAlpha:0];
     [tempICVController.view setFrame:CGRectMake(0, ([imageCollections count] * tempICVController.view.frame.size.height), SCREEN_WIDTH, SCREEN_HEIGHT)];
     [imageCollections addObject:tempICVController];
+    
     [self.albumsScrollview addSubview:tempICVController.view];
     
     

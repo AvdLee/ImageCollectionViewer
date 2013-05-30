@@ -211,9 +211,7 @@
     
     CGRect endFrame = _zoomView.frame;
     _zoomView.frame = [_zoomedImageScrollViewDelegate returnThumbFrameForIndex:_index];
-    
-    LogRect(endFrame);
-    
+        
     [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.0]];
     [_zoomedImageScrollViewDelegate zoomedImageScrollViewWillBeginAnimating];
     
@@ -320,7 +318,7 @@
 
 - (void)setMaxMinZoomScalesForCurrentBounds
 {
-    CGSize boundsSize = CGSizeMake(310, 548);//self.bounds.size;
+    CGSize boundsSize = self.bounds.size;
     //NSLog(@"boundsSize is w %f h %f", boundsSize.width, boundsSize.height);
     
     // calculate min/max zoomscale
@@ -418,26 +416,6 @@
 - (CGPoint)minimumContentOffset
 {
     return CGPointZero;
-}
-
-- (void)resizeZoomViewToImageRatio {
-    // Calculate width
-    float goalWidth = SCREEN_WIDTH - (ZOOMED_IMAGE_MARGIN * 2);
-    CGRect ivFrame = _zoomView.frame;
-    
-    // Set origin x for margin
-    ivFrame.origin = CGPointMake(ZOOMED_IMAGE_MARGIN, 0);
-    
-    // Width ratio
-    float ratio = goalWidth / _image.largeSize.width;
-    float newWidth = _image.largeSize.width * ratio;
-    float newHeight = _image.largeSize.height * ratio;
-    
-    // Set size
-    ivFrame.size = CGSizeMake(newWidth, newHeight);
-
-    // Apply frame
-    [_zoomView setFrame:ivFrame];
 }
 
 @end

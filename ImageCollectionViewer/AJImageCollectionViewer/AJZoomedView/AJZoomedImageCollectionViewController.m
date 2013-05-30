@@ -9,7 +9,6 @@
 #import "AJZoomedImageCollectionViewController.h"
 
 @interface AJZoomedImageCollectionViewController () {
-    NSUInteger currentPageIndex;
     BOOL initiated;
     BOOL infoVisible;
     AJImageCollection *_imageCollection;
@@ -19,31 +18,29 @@
 
 @implementation AJZoomedImageCollectionViewController
 
-@synthesize imageTitle, delegate;
-@synthesize selectedImageSmallFrame, imagesPageViewController, imageHeaderViewContainer, imageFooterViewContainer;
+@synthesize imageTitle, zoomedImageCollectionDelegate, currentPageIndex;
+@synthesize imagesPageViewController, imageHeaderViewContainer, imageFooterViewContainer;
 @synthesize footerCurrentIndex, footerLeftArrow, footerRightArrow, footerTotalImagesCount;
 
 
 #pragma mark - View Initialisation
-+ (AJZoomedImageCollectionViewController *)initWithImageCollection:(AJImageCollection *)imageCollection selectedIndex:(NSUInteger)index selectedImageFrame:(CGRect)frame
++ (AJZoomedImageCollectionViewController *)initWithImageCollection:(AJImageCollection *)imageCollection selectedIndex:(NSUInteger)index delegate:(id)delegate
 {
-    return [[self alloc] initWithImageCollection:imageCollection selectedIndex:index selectedImageFrame:frame];
+    return [[self alloc] initWithImageCollection:imageCollection selectedIndex:index delegate:delegate];
 }
 
-- (id) initWithImageCollection:(AJImageCollection *)imageCollection selectedIndex:(NSUInteger)index selectedImageFrame:(CGRect)frame {
+- (id) initWithImageCollection:(AJImageCollection *)imageCollection selectedIndex:(NSUInteger)index delegate:(id)delegate {
     if (self = [super initWithNibName:@"AJZoomedImageCollectionViewController"  bundle:nil]) {
         // Custom initialization
         _imageCollection = imageCollection;
         currentPageIndex = index;
-        selectedImageSmallFrame = frame;
-        
+        zoomedImageCollectionDelegate = delegate;
         [self buildPageController];
     }
     return self;
 }
 
-#pragma mark - View lifecycle
-- (void) viewWillAppear:(BOOL)animated {
+- (void) initHeaderAndFooter {
     // Set outside view to animate in later
     CGRect headerFrame = imageHeaderViewContainer.frame;
     headerFrame.origin.y = -headerFrame.size.height;
@@ -53,11 +50,14 @@
     footerFrame.origin.y = footerFrame.origin.y + footerFrame.size.height;
     [imageFooterViewContainer setFrame:footerFrame];
     
+    // Update text and pagenumbers
+    [imageTitle setText:[[_imageCollection.images objectAtIndex:currentPageIndex] title]];
     [self updateHeaderAndFooterForCurrentImage];
 }
 
+#pragma mark - View lifecycle
 - (void) viewDidLoad {
-    [imageTitle setText:[[_imageCollection.images objectAtIndex:currentPageIndex] title]];
+    [self initHeaderAndFooter];
     [self initGestures];
 }
 
@@ -110,8 +110,6 @@
 
 #pragma mark - UIPageViewController methods
 - (void) buildPageController {
-    [delegate zoomedImagePageViewControllerSwitchedToIndex:0];
-
     PhotoViewController *pageZero = [PhotoViewController photoViewControllerForImage:[_imageCollection.images objectAtIndex:currentPageIndex] pageIndex:currentPageIndex andZoomedImageSrollViewDelegate:self];
     
     if (pageZero != nil)
@@ -168,7 +166,7 @@
     
     if(completed) {
         currentPageIndex = [(PhotoViewController *)[pageViewController.viewControllers lastObject] pageIndex];
-        [delegate zoomedImagePageViewControllerSwitchedToIndex:currentPageIndex];
+        [zoomedImageCollectionDelegate zoomedImagePageViewControllerSwitchedToIndex:currentPageIndex];
         [self updateHeaderAndFooterForCurrentImage];
     }
 }
@@ -179,7 +177,7 @@
 }
 
 - (CGRect) returnThumbFrameForIndex:(NSUInteger) index {
-    return selectedImageSmallFrame;
+    return [zoomedImageCollectionDelegate returnThumbFrameForIndex:index];
 }
 
 - (void) zoomedImageScrollViewWillBeginAnimating {

@@ -43,7 +43,35 @@
     
     // set orientation
     _currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    // set observers
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willRotate:) name:@"willRotate" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate:) name:@"didRotate" object:nil];
+
 }
+
+- (void)willRotate:(NSNotification *)notification {
+    if(zoomedImageCollectionViewController){
+        //UIViewController *parent = [notification object];
+        //[parent.navigationController setNavigationBarHidden:YES animated:NO];
+    }
+}
+
+- (void)didRotate:(NSNotification *)notification {
+    if(zoomedImageCollectionViewController){
+        UIViewController *parent = [notification object];
+        //parent.navigationController.view set
+        
+        UIWindow* window = [UIApplication sharedApplication].keyWindow;
+        if (!window)
+            window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+        [window sendSubviewToBack:parent.navigationController.view];
+        //[[[window subviews] objectAtIndex:0] bringSubviewToFront:zoomedImageCollectionViewController.view];
+        //[parent.navigationController setNavigationBarHidden:NO animated:NO];
+
+    }
+}
+
 
 #pragma mark - Images Initialisation
 - (void) addImageForIndex:(int)index {
@@ -85,12 +113,16 @@
         
     [zoomedImageCollectionViewController.view setFrame:[self returnAbsoluteScreenFrame]];
     
-    UIWindow* window = [UIApplication sharedApplication].keyWindow;
+    /*UIWindow* window = [UIApplication sharedApplication].keyWindow;
     if (!window)
         window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-    [[[window subviews] objectAtIndex:0] addSubview:zoomedImageCollectionViewController.view];
+    [[[window subviews] objectAtIndex:0] addSubview:zoomedImageCollectionViewController.view];*/
+    
+    [self.navigationController pushViewController:zoomedImageCollectionViewController animated:FALSE];
     
     //[[[UIApplication sharedApplication] keyWindow] addSubview:zoomedImageCollectionViewController.view];
+    //[self.navigationController.view addSubview:zoomedImageCollectionViewController.view];
+    
 }
 
 - (CGRect) returnAbsoluteFrameForButton:(UIButton *)button {

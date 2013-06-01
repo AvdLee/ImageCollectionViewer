@@ -7,7 +7,8 @@
 //
 
 #define ZOOMED_IMAGE_MOVED_LIMIT 60.0f
-#define ZOOMED_IMAGE_MARGIN 5.0f
+#define ZOOMED_IMAGE_MARGIN_LEFT_RIGHT 5.0f
+#define ZOOMED_IMAGE_MARGIN_TOP_BOTTOM 30.0f
 #define SCROLLVIEW_INSET 16.0f
 #define THUMBS_SPACING 20.0f
 #define SCREEN_HEIGHT [UIScreen mainScreen].applicationFrame.size.height

@@ -11,6 +11,7 @@
 #import "AJImageCollection.h"
 #import "FBAlbumFactory.h"
 #import "FBPhotoFactory.h"
+#import "MTStatusBarOverlay.h"
 
 
 
@@ -28,7 +29,12 @@
 {
     [super viewDidLoad];
     
+    
+    MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
+    
+    
     imageCollections = [[NSMutableArray alloc] init];
+    
     
     /*
 
@@ -114,7 +120,6 @@
 
 - (void) addAlbumToViewWithCollection:(AJImageCollection *)collection {
     AJImageCollectionViewController *tempICVController = [[AJImageCollectionViewController alloc] initWithImageCollection:collection];
-
     [self.albumsScrollview setContentSize:CGSizeMake(SCREEN_WIDTH, ([imageCollections count] * tempICVController.view.frame.size.height))];
     [tempICVController.view setAlpha:0];
     [tempICVController.view setFrame:CGRectMake(0, ([imageCollections count] * tempICVController.view.frame.size.height), SCREEN_WIDTH, SCREEN_HEIGHT)];
@@ -127,6 +132,33 @@
                      animations:^{
                          [tempICVController.view setAlpha:1.0];
                      }];
+}
+
+// Older versions of iOS (deprecated) if supporting iOS < 5
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation    {
+    return YES;
+}
+
+// iOS6
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+// iOS6
+- (NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+- (void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"willRotate"
+                                                        object:self
+                                                      userInfo:nil];
+}
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"didRotate"
+                                                        object:self
+                                                      userInfo:nil];
 }
 
 @end

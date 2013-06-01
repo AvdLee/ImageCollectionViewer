@@ -124,6 +124,53 @@
 }
 
 
+#pragma mark - Image Animation methods
+- (void) animateImageIn {
+    _animatingIn = true;
+    
+    CGRect endFrame = _zoomView.frame;
+    _zoomView.frame = [_zoomedImageScrollViewDelegate returnThumbFrameForIndex:_index];
+    
+    [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.0]];
+    [_zoomedImageScrollViewDelegate zoomedImageScrollViewWillBeginAnimating];
+    
+    [UIView animateWithDuration:0.3 delay:0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:1.0]];
+                         _zoomView.frame = endFrame;
+                     }
+                     completion:^(BOOL finished){
+                         _animatingIn = false;
+                         
+                         UIImage *cachedLargeImage = [[AJCacheHelper sharedInstance] cachedImageForURL:[_image largeImgUrl]];
+                         UIImage *cachedSmallImage = [[AJCacheHelper sharedInstance] cachedImageForURL:[_image smallImgUrl]];
+                         
+                         // If large image is downloaded, but not set yet
+                         if(_zoomView.image == cachedSmallImage && cachedLargeImage){
+                             [self displayImage:cachedLargeImage];
+                         }
+                         [_zoomedImageScrollViewDelegate zoomedImageScrollViewDidEndAnimating];
+                     }];
+}
+
+- (void) animateImageOutAndRemove {
+    CGRect thumbFrameWithOffset = [_zoomedImageScrollViewDelegate returnThumbFrameForIndex:_index];
+    thumbFrameWithOffset.origin.y = thumbFrameWithOffset.origin.y + self.contentOffset.y;
+    
+    [UIView animateWithDuration:0.3 delay:0
+                        options:UIViewAnimationOptionCurveEaseInOut
+                     animations:^{
+                         _zoomView.frame = thumbFrameWithOffset;
+                         [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.0]];
+                     }
+                     completion:^(BOOL finished){
+                         [_zoomedImageScrollViewDelegate zoomedImageScrolledOut];
+                         
+                     }];
+}
+
+
 #pragma mark - UIScrollViewDelegate
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
@@ -205,52 +252,6 @@
     }
 }
 
-#pragma mark - Image Animation methods
-- (void) animateImageIn {
-    _animatingIn = true;
-    
-    CGRect endFrame = _zoomView.frame;
-    _zoomView.frame = [_zoomedImageScrollViewDelegate returnThumbFrameForIndex:_index];
-        
-    [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.0]];
-    [_zoomedImageScrollViewDelegate zoomedImageScrollViewWillBeginAnimating];
-    
-    [UIView animateWithDuration:0.3 delay:0
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:1.0]];
-                         _zoomView.frame = endFrame;
-                     }
-                     completion:^(BOOL finished){
-                         _animatingIn = false;
-                         
-                         UIImage *cachedLargeImage = [[AJCacheHelper sharedInstance] cachedImageForURL:[_image largeImgUrl]];
-                         UIImage *cachedSmallImage = [[AJCacheHelper sharedInstance] cachedImageForURL:[_image smallImgUrl]];
-                         
-                         // If large image is downloaded, but not set yet
-                         if(_zoomView.image == cachedSmallImage && cachedLargeImage){
-                             [self displayImage:cachedLargeImage];
-                         }
-                         [_zoomedImageScrollViewDelegate zoomedImageScrollViewDidEndAnimating];
-                     }];
-}
-
-- (void) animateImageOutAndRemove {
-    CGRect thumbFrameWithOffset = [_zoomedImageScrollViewDelegate returnThumbFrameForIndex:_index];
-    thumbFrameWithOffset.origin.y = thumbFrameWithOffset.origin.y + self.contentOffset.y;
-    
-    [UIView animateWithDuration:0.3 delay:0
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         _zoomView.frame = thumbFrameWithOffset;
-                         [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.0]];
-                     }
-                     completion:^(BOOL finished){
-                         [_zoomedImageScrollViewDelegate zoomedImageScrolledOut];
-                         
-                     }];
-}
-
 #pragma mark - Configure scrollView to display new image (tiled or not)
 - (void)displayImage:(UIImage *)image
 {
@@ -276,35 +277,6 @@
     
     // Configure for size
     [self configureForImageSize:_zoomView.image.size];
-    
-    // make weak copies
-    //__weak AJImage *weakImage = _image;
-    
-    /*if([_image cachedLargeImage]){
-     _zoomView = [[UIImageView alloc] initWithImage:[_image cachedLargeImage]];
-     
-     [self addSubview:_zoomView];
-     [self configureForImageSize:[_image cachedLargeImage].size];
-     
-     } else {
-     _zoomView = [[UIImageView alloc] initWithImage:[_image cachedSmallImage]];
-     
-     [self addSubview:_zoomView];
-     [self configureForImageSize:[_image cachedSmallImage].size];
-     
-     dispatch_async(dispatch_get_global_queue(0,0), ^{
-     NSData * data = [[NSData alloc] initWithContentsOfURL: [weakImage largeImgUrl]];
-     if ( data == nil )
-     return;
-     dispatch_async(dispatch_get_main_queue(), ^{
-     [_image setCachedLargeImage:[UIImage imageWithData:data]];
-     
-     if(!_animatingIn){
-     [self displayImage:_image];
-     }
-     });
-     });
-     }*/
 }
 
 - (void)configureForImageSize:(CGSize)imageSize
@@ -319,29 +291,23 @@
 - (void)setMaxMinZoomScalesForCurrentBounds
 {
     CGSize boundsSize = self.bounds.size;
-    //NSLog(@"boundsSize is w %f h %f", boundsSize.width, boundsSize.height);
     
     // calculate min/max zoomscale
-    CGFloat xScale = (boundsSize.width - (ZOOMED_IMAGE_MARGIN*2))  / _imageSize.width;    // the scale needed to perfectly fit the image width-wise
-    CGFloat yScale = boundsSize.height / _imageSize.height;   // the scale needed to perfectly fit the image height-wise
+    CGFloat xScale = (boundsSize.width - (ZOOMED_IMAGE_MARGIN_LEFT_RIGHT*2))  / _imageSize.width;    // the scale needed to perfectly fit the image width-wise
+    CGFloat yScale = (boundsSize.height - (ZOOMED_IMAGE_MARGIN_TOP_BOTTOM*2)) / _imageSize.height;   // the scale needed to perfectly fit the image height-wise
     
-    // fill width if the image and phone are both portrait or both landscape; otherwise take smaller scale
-    //BOOL imagePortrait = _imageSize.height > _imageSize.width;
-    //BOOL phonePortrait = boundsSize.height > boundsSize.width;
-    //CGFloat minScale = imagePortrait == phonePortrait ? xScale : MIN(xScale, yScale);
+    // Take smallest scale to make sure the image stays in boundaries
     CGFloat minScale = MIN(xScale, yScale);
     
-    // on high resolution screens we have double the pixel density, so we will be seeing every pixel if we limit the
-    // maximum zoom scale to 0.5.
-    CGFloat maxScale = 1.0;// 1.0 / [[UIScreen mainScreen] scale];
+    // Set maxScale to 1.0 for default
+    CGFloat maxScale = 1.0;
     
-    // don't let minScale exceed maxScale. (If the image is smaller than the screen, we don't want to force it to be zoomed.)
+    // If the image is smaller and used for zooming, make sure the maxScale can exceed
     if (minScale > maxScale) {
-        minScale = maxScale;
+        maxScale = minScale;
     }
     self.maximumZoomScale = maxScale;
     self.minimumZoomScale = minScale;
-    //NSLog(@"maxScale %f minScale %f", maxScale, minScale);
 }
 
 - (BOOL) zoomed {
@@ -395,15 +361,6 @@
     offset.y = MAX(minOffset.y, realMaxOffset);
     
     self.contentOffset = offset;
-    /*
-     NSLog(@"x: %f", offset.x);
-     NSLog(@"y: %f", offset.y);
-     NSLog(@"frame x: %f", self.frame.origin.x);
-     NSLog(@"frame y: %f", self.frame.origin.y);
-     NSLog(@"frame width: %f", self.frame.size.width);
-     NSLog(@"frame height: %f", self.frame.size.height);
-     NSLog(@"content width: %f", self.contentSize.width);
-     NSLog(@"content height: %f", self.contentSize.height);*/
 }
 
 - (CGPoint)maximumContentOffset

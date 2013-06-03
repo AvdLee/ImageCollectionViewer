@@ -34,25 +34,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "ImageCollectionViewer/AJImageCollectionViewer/AJThumbView/AJImageCollectionViewController.m"
-         timestampString = "391618292.86337"
+         timestampString = "391797017.269725"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "88"
-         endingLineNumber = "88"
+         startingLineNumber = "62"
+         endingLineNumber = "62"
          landmarkName = "-refreshScrollView"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "ImageCollectionViewer/AJImageCollectionViewer/AJThumbView/AJImageCollectionViewController.m"
-         timestampString = "391618292.86337"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "67"
-         endingLineNumber = "67"
-         landmarkName = "-didRotate:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

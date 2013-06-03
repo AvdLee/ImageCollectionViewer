@@ -50,7 +50,6 @@
 		84605F12173FD8E1004D69C0 /* AJImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 84605F11173FD8E0004D69C0 /* AJImage.m */; };
 		84605F15173FDE96004D69C0 /* AJImageCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 84605F14173FDE96004D69C0 /* AJImageCollection.m */; };
 		84605F1C173FFBEE004D69C0 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84605F1B173FFBEE004D69C0 /* ImageIO.framework */; };
-		8476EFDE1758886D0010AE71 /* MTStatusBarOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 8476EFDD1758886D0010AE71 /* MTStatusBarOverlay.m */; };
 		8497BDF8174274E7007CBB53 /* FBAlbumFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497BDF7174274E7007CBB53 /* FBAlbumFactory.m */; };
 		8497BDFC174275E8007CBB53 /* FBAlbumCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497BDFB174275E8007CBB53 /* FBAlbumCollection.m */; };
 		8497BDFF174275F2007CBB53 /* FBAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497BDFE174275F2007CBB53 /* FBAlbum.m */; };
@@ -67,6 +66,7 @@
 		8497BE24174502AF007CBB53 /* AJImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497BE20174502AF007CBB53 /* AJImageContainer.m */; };
 		8497BE25174502AF007CBB53 /* AJImageContainer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8497BE21174502AF007CBB53 /* AJImageContainer.xib */; };
 		8497BE89174D3D32007CBB53 /* AJImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497BE88174D3D32007CBB53 /* AJImageView.m */; };
+		8499F320175D03D0006DD426 /* AJWindowOverlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499F31F175D03D0006DD426 /* AJWindowOverlay.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,8 +133,6 @@
 		84605F13173FDE95004D69C0 /* AJImageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJImageCollection.h; sourceTree = "<group>"; };
 		84605F14173FDE96004D69C0 /* AJImageCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJImageCollection.m; sourceTree = "<group>"; };
 		84605F1B173FFBEE004D69C0 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		8476EFDC1758886D0010AE71 /* MTStatusBarOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTStatusBarOverlay.h; sourceTree = "<group>"; };
-		8476EFDD1758886D0010AE71 /* MTStatusBarOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTStatusBarOverlay.m; sourceTree = "<group>"; };
 		8497BDF5174273D2007CBB53 /* FBSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FBSettings.h; sourceTree = "<group>"; };
 		8497BDF6174274E7007CBB53 /* FBAlbumFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAlbumFactory.h; sourceTree = "<group>"; };
 		8497BDF7174274E7007CBB53 /* FBAlbumFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBAlbumFactory.m; sourceTree = "<group>"; };
@@ -164,6 +162,8 @@
 		8497BE21174502AF007CBB53 /* AJImageContainer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJImageContainer.xib; sourceTree = "<group>"; };
 		8497BE87174D3D32007CBB53 /* AJImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJImageView.h; sourceTree = "<group>"; };
 		8497BE88174D3D32007CBB53 /* AJImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJImageView.m; sourceTree = "<group>"; };
+		8499F31E175D03D0006DD426 /* AJWindowOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJWindowOverlay.h; sourceTree = "<group>"; };
+		8499F31F175D03D0006DD426 /* AJWindowOverlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJWindowOverlay.m; sourceTree = "<group>"; };
 		84A992AA172ABC7800090D66 /* AJImageCollectionSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AJImageCollectionSettings.h; path = AJImageCollectionViewer/AJImageCollectionSettings.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -218,7 +218,6 @@
 		8406DDE017283AAB009AE5CC /* ImageCollectionViewer */ = {
 			isa = PBXGroup;
 			children = (
-				8476EFD9175887E10010AE71 /* tijdelijk */,
 				841570F6175625DC0061C4C9 /* Categories */,
 				841570B01753D9DE0061C4C9 /* Helpers */,
 				8406DE0517283F7D009AE5CC /* Resources */,
@@ -335,15 +334,6 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		8476EFD9175887E10010AE71 /* tijdelijk */ = {
-			isa = PBXGroup;
-			children = (
-				8476EFDC1758886D0010AE71 /* MTStatusBarOverlay.h */,
-				8476EFDD1758886D0010AE71 /* MTStatusBarOverlay.m */,
-			);
-			name = tijdelijk;
-			sourceTree = "<group>";
-		};
 		8497BDF4174272BE007CBB53 /* FBAlbums */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,6 +379,8 @@
 		8497BE0D174501EB007CBB53 /* AJZoomedView */ = {
 			isa = PBXGroup;
 			children = (
+				8499F31E175D03D0006DD426 /* AJWindowOverlay.h */,
+				8499F31F175D03D0006DD426 /* AJWindowOverlay.m */,
 				8497BE0E174501EB007CBB53 /* AJZoomedImageCollectionViewController.h */,
 				8497BE0F174501EB007CBB53 /* AJZoomedImageCollectionViewController.m */,
 				8497BE10174501EB007CBB53 /* AJZoomedImageCollectionViewController.xib */,
@@ -530,7 +522,7 @@
 				841570E9175603150061C4C9 /* UIImageView+AFNetworking.m in Sources */,
 				841570F9175625E50061C4C9 /* UIButton+AJCache.m in Sources */,
 				841570FC175628D80061C4C9 /* AJDownloadManager.m in Sources */,
-				8476EFDE1758886D0010AE71 /* MTStatusBarOverlay.m in Sources */,
+				8499F320175D03D0006DD426 /* AJWindowOverlay.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

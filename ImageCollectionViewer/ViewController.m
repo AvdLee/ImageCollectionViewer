@@ -11,7 +11,6 @@
 #import "AJImageCollection.h"
 #import "FBAlbumFactory.h"
 #import "FBPhotoFactory.h"
-#import "MTStatusBarOverlay.h"
 
 
 
@@ -30,7 +29,7 @@
     [super viewDidLoad];
     
     
-    MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
+    //MTStatusBarOverlay *overlay = [MTStatusBarOverlay sharedInstance];
     
     
     imageCollections = [[NSMutableArray alloc] init];
@@ -147,18 +146,6 @@
 // iOS6
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
-}
-
-- (void) willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"willRotate"
-                                                        object:self
-                                                      userInfo:nil];
-}
-
-- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"didRotate"
-                                                        object:self
-                                                      userInfo:nil];
 }
 
 @end

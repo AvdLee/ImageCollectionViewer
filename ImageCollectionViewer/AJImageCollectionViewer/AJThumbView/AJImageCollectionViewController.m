@@ -9,6 +9,7 @@
 #import "AJImageCollectionViewController.h"
 #import "PhotoViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AJWindowOverlay.h"
 
 @interface AJImageCollectionViewController (){
     AJImageCollection *_imageCollection;
@@ -43,33 +44,6 @@
     
     // set orientation
     _currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    // set observers
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willRotate:) name:@"willRotate" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate:) name:@"didRotate" object:nil];
-
-}
-
-- (void)willRotate:(NSNotification *)notification {
-    if(zoomedImageCollectionViewController){
-        //UIViewController *parent = [notification object];
-        //[parent.navigationController setNavigationBarHidden:YES animated:NO];
-    }
-}
-
-- (void)didRotate:(NSNotification *)notification {
-    if(zoomedImageCollectionViewController){
-        UIViewController *parent = [notification object];
-        //parent.navigationController.view set
-        
-        UIWindow* window = [UIApplication sharedApplication].keyWindow;
-        if (!window)
-            window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-        [window sendSubviewToBack:parent.navigationController.view];
-        //[[[window subviews] objectAtIndex:0] bringSubviewToFront:zoomedImageCollectionViewController.view];
-        //[parent.navigationController setNavigationBarHidden:NO animated:NO];
-
-    }
 }
 
 
@@ -113,16 +87,8 @@
         
     [zoomedImageCollectionViewController.view setFrame:[self returnAbsoluteScreenFrame]];
     
-    /*UIWindow* window = [UIApplication sharedApplication].keyWindow;
-    if (!window)
-        window = [[UIApplication sharedApplication].windows objectAtIndex:0];
-    [[[window subviews] objectAtIndex:0] addSubview:zoomedImageCollectionViewController.view];*/
-    
-    [self.navigationController pushViewController:zoomedImageCollectionViewController animated:FALSE];
-    
-    //[[[UIApplication sharedApplication] keyWindow] addSubview:zoomedImageCollectionViewController.view];
-    //[self.navigationController.view addSubview:zoomedImageCollectionViewController.view];
-    
+    AJWindowOverlay *windowOverlay = [AJWindowOverlay sharedInstance];
+    [windowOverlay setRootViewController:zoomedImageCollectionViewController];    
 }
 
 - (CGRect) returnAbsoluteFrameForButton:(UIButton *)button {

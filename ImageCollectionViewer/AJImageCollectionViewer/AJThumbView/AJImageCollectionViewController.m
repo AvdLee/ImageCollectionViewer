@@ -85,10 +85,12 @@
     UIButton *button = sender;
     zoomedImageCollectionViewController = [AJZoomedImageCollectionViewController initWithImageCollection:_imageCollection selectedIndex:button.tag delegate:self];
         
-    [zoomedImageCollectionViewController.view setFrame:[self returnAbsoluteScreenFrame]];
     
     AJWindowOverlay *windowOverlay = [AJWindowOverlay sharedInstance];
-    [windowOverlay setRootViewController:zoomedImageCollectionViewController];    
+    [windowOverlay setRootViewController:zoomedImageCollectionViewController];
+    //[zoomedImageCollectionViewController.view setFrame:[self returnAbsoluteScreenFrame]];
+
+    LogRect(zoomedImageCollectionViewController.view.frame);
 }
 
 - (CGRect) returnAbsoluteFrameForButton:(UIButton *)button {
@@ -107,6 +109,8 @@
 
 - (CGRect) returnAbsoluteScreenFrame {
     CGRect frame = self.view.bounds;
+    frame.origin.y = 0;
+    return frame;
     CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
     
     UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];

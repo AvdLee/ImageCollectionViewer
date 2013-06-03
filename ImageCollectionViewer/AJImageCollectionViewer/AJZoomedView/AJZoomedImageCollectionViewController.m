@@ -7,6 +7,7 @@
 //
 
 #import "AJZoomedImageCollectionViewController.h"
+#import "AJWindowOverlay.h"
 
 @interface AJZoomedImageCollectionViewController () {
     BOOL initiated;
@@ -173,7 +174,8 @@
 
 #pragma mark - AJZoomedImageSrollViewDelegate methods
 - (void) zoomedImageScrolledOut {
-    [self.view removeFromSuperview];
+    AJWindowOverlay *windowOverlay = [AJWindowOverlay sharedInstance];
+    [windowOverlay removeFromView];
 }
 
 - (CGRect) returnThumbFrameForIndex:(NSUInteger) index {

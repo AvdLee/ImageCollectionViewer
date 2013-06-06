@@ -10,14 +10,14 @@
 #import "AJZoomedImageSrollView.h"
 #import "AJImage.h"
 
-@interface PhotoViewController : UIViewController
+@interface AJPhotoViewController : UIViewController
 
 #pragma mark - Variables
 - (void) animateImageIn;
 - (NSInteger)pageIndex;
 
 #pragma mark - Functions
-+ (PhotoViewController *)photoViewControllerForImage:(AJImage *)image pageIndex:(NSUInteger)pageIndex andZoomedImageSrollViewDelegate:(id)delegate;
++ (AJPhotoViewController *)photoViewControllerForImage:(AJImage *)image pageIndex:(NSUInteger)pageIndex andZoomedImageSrollViewDelegate:(id)delegate;
 
 
 

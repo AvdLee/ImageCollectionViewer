@@ -11,12 +11,19 @@
 #import "AJZoomedImageSrollView.h"
 #import "AJCacheHelper.h"
 #import "AJDownloadManager.h"
+#import "AJProgressView.h"
+#import "UIImageView+AJProgress.h"
+
+#define P(x,y) CGPointMake(x, y)
+
 
 #pragma mark -
 
 @interface AJZoomedImageSrollView () <UIScrollViewDelegate>
 {
     UIImageView *_zoomView;
+    AJProgressView *_progressView;
+
     CGSize      _imageSize;
     BOOL        _zoomed;
     CGPoint     _startPos;
@@ -65,13 +72,24 @@
         [self displayImage:cachedSmallImage];
         [self downloadLargeImage];
     } else {
+        CGRect viewRect = CGRectMake(0,0,[UIScreen mainScreen].bounds.size.width,[UIScreen mainScreen].bounds.size.height);
+        _progressView = [[AJProgressView alloc] initInCenterOfFrame:viewRect];
+        _progressView.tintColor = [UIColor whiteColor];
+        [self addSubview:_progressView];
         [self downloadLargeImage];
     }
 }
 
 - (void)downloadLargeImage
 {
-    [AJDownloadManager getImageFromURL:[_image largeImgUrl] success:^(UIImage *image) {
+    [AJDownloadManager getImageFromURL:[_image largeImgUrl] progressChange:^(float progress) {
+        if(_progressView){
+            if(progress == 1){
+                [_progressView removeFromSuperview];
+            }
+            [_progressView setProgress:progress];
+        }
+    } success:^(UIImage *image) {
         if(!_animatingIn){
             [self displayImage:image];   
         }

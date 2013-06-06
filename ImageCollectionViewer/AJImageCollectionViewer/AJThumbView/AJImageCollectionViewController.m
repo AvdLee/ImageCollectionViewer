@@ -7,7 +7,7 @@
 //
 
 #import "AJImageCollectionViewController.h"
-#import "PhotoViewController.h"
+#import "AJPhotoViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "AJWindowOverlay.h"
 
@@ -24,7 +24,6 @@
 - (id)initWithImageCollection:(AJImageCollection *)imageCollection
 {
     if (self = [super initWithNibName:@"AJImageCollectionViewController" bundle:nil]) {
-        // Custom initialization
         _imageCollection = imageCollection;
         [self.view setFrame:self.view.frame];
     }
@@ -88,9 +87,6 @@
     
     AJWindowOverlay *windowOverlay = [AJWindowOverlay sharedInstance];
     [windowOverlay setRootViewController:zoomedImageCollectionViewController];
-    //[zoomedImageCollectionViewController.view setFrame:[self returnAbsoluteScreenFrame]];
-
-    LogRect(zoomedImageCollectionViewController.view.frame);
 }
 
 - (CGRect) returnAbsoluteFrameForButton:(UIButton *)button {
@@ -105,25 +101,6 @@
     }
     
     return CGRectMake(x, y, button.frame.size.width, button.frame.size.height);
-}
-
-- (CGRect) returnAbsoluteScreenFrame {
-    CGRect frame = self.view.bounds;
-    frame.origin.y = 0;
-    return frame;
-    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-    
-    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if(UIInterfaceOrientationIsPortrait(interfaceOrientation)){
-        return appFrame;
-    } else {
-        frame.size.height = appFrame.size.width;
-        frame.size.width = appFrame.size.height;
-        frame.origin.y = ([UIApplication sharedApplication].statusBarHidden ? 0 : 20);
-    }
-    
-    return frame;
 }
 
 #pragma mark - imageCollectionScrollViewDelegate methods

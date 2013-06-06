@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		578C9A89175E7196007F1BDF /* UIImageView+AJProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 578C9A88175E7196007F1BDF /* UIImageView+AJProgress.m */; };
+		578C9A8B175E7518007F1BDF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 578C9A8A175E7518007F1BDF /* QuartzCore.framework */; };
+		57E70B651761036600189095 /* AJProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E70B641761036600189095 /* AJProgressView.m */; };
 		8406DDDB17283AAB009AE5CC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406DDDA17283AAB009AE5CC /* UIKit.framework */; };
 		8406DDDD17283AAB009AE5CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406DDDC17283AAB009AE5CC /* Foundation.framework */; };
 		8406DDDF17283AAB009AE5CC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8406DDDE17283AAB009AE5CC /* CoreGraphics.framework */; };
@@ -59,8 +62,7 @@
 		8497BE16174501EB007CBB53 /* AJZoomedImageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497BE0F174501EB007CBB53 /* AJZoomedImageCollectionViewController.m */; };
 		8497BE17174501EB007CBB53 /* AJZoomedImageCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8497BE10174501EB007CBB53 /* AJZoomedImageCollectionViewController.xib */; };
 		8497BE18174501EB007CBB53 /* AJZoomedImageSrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497BE12174501EB007CBB53 /* AJZoomedImageSrollView.m */; };
-		8497BE19174501EB007CBB53 /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497BE14174501EB007CBB53 /* PhotoViewController.m */; };
-		8497BE1A174501EB007CBB53 /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8497BE15174501EB007CBB53 /* PhotoViewController.xib */; };
+		8497BE19174501EB007CBB53 /* AJPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497BE14174501EB007CBB53 /* AJPhotoViewController.m */; };
 		8497BE22174502AF007CBB53 /* AJImageCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497BE1D174502AF007CBB53 /* AJImageCollectionViewController.m */; };
 		8497BE23174502AF007CBB53 /* AJImageCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8497BE1E174502AF007CBB53 /* AJImageCollectionViewController.xib */; };
 		8497BE24174502AF007CBB53 /* AJImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497BE20174502AF007CBB53 /* AJImageContainer.m */; };
@@ -70,6 +72,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		578C9A87175E7196007F1BDF /* UIImageView+AJProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AJProgress.h"; sourceTree = "<group>"; };
+		578C9A88175E7196007F1BDF /* UIImageView+AJProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AJProgress.m"; sourceTree = "<group>"; };
+		578C9A8A175E7518007F1BDF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		57E70B631761036600189095 /* AJProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJProgressView.h; sourceTree = "<group>"; };
+		57E70B641761036600189095 /* AJProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJProgressView.m; sourceTree = "<group>"; };
 		8406DDD717283AAB009AE5CC /* ImageCollectionViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageCollectionViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8406DDDA17283AAB009AE5CC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8406DDDC17283AAB009AE5CC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -151,9 +158,8 @@
 		8497BE10174501EB007CBB53 /* AJZoomedImageCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJZoomedImageCollectionViewController.xib; sourceTree = "<group>"; };
 		8497BE11174501EB007CBB53 /* AJZoomedImageSrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJZoomedImageSrollView.h; sourceTree = "<group>"; };
 		8497BE12174501EB007CBB53 /* AJZoomedImageSrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJZoomedImageSrollView.m; sourceTree = "<group>"; };
-		8497BE13174501EB007CBB53 /* PhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
-		8497BE14174501EB007CBB53 /* PhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
-		8497BE15174501EB007CBB53 /* PhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoViewController.xib; sourceTree = "<group>"; };
+		8497BE13174501EB007CBB53 /* AJPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJPhotoViewController.h; sourceTree = "<group>"; };
+		8497BE14174501EB007CBB53 /* AJPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJPhotoViewController.m; sourceTree = "<group>"; };
 		8497BE1C174502AF007CBB53 /* AJImageCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AJImageCollectionViewController.h; sourceTree = "<group>"; };
 		8497BE1D174502AF007CBB53 /* AJImageCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AJImageCollectionViewController.m; sourceTree = "<group>"; };
 		8497BE1E174502AF007CBB53 /* AJImageCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AJImageCollectionViewController.xib; sourceTree = "<group>"; };
@@ -172,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				578C9A8B175E7518007F1BDF /* QuartzCore.framework in Frameworks */,
 				841570ED175603CC0061C4C9 /* MobileCoreServices.framework in Frameworks */,
 				841570EB175603BC0061C4C9 /* SystemConfiguration.framework in Frameworks */,
 				84605F1C173FFBEE004D69C0 /* ImageIO.framework in Frameworks */,
@@ -205,6 +212,7 @@
 		8406DDD917283AAB009AE5CC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				578C9A8A175E7518007F1BDF /* QuartzCore.framework */,
 				841570EC175603CC0061C4C9 /* MobileCoreServices.framework */,
 				841570EA175603BC0061C4C9 /* SystemConfiguration.framework */,
 				84605F1B173FFBEE004D69C0 /* ImageIO.framework */,
@@ -330,6 +338,8 @@
 			children = (
 				841570F7175625E50061C4C9 /* UIButton+AJCache.h */,
 				841570F8175625E50061C4C9 /* UIButton+AJCache.m */,
+				578C9A87175E7196007F1BDF /* UIImageView+AJProgress.h */,
+				578C9A88175E7196007F1BDF /* UIImageView+AJProgress.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -365,6 +375,8 @@
 		8497BE0C17450106007CBB53 /* AJObjects */ = {
 			isa = PBXGroup;
 			children = (
+				57E70B631761036600189095 /* AJProgressView.h */,
+				57E70B641761036600189095 /* AJProgressView.m */,
 				84605F10173FD8E0004D69C0 /* AJImage.h */,
 				84605F11173FD8E0004D69C0 /* AJImage.m */,
 				84605F13173FDE95004D69C0 /* AJImageCollection.h */,
@@ -384,9 +396,8 @@
 				8497BE0E174501EB007CBB53 /* AJZoomedImageCollectionViewController.h */,
 				8497BE0F174501EB007CBB53 /* AJZoomedImageCollectionViewController.m */,
 				8497BE10174501EB007CBB53 /* AJZoomedImageCollectionViewController.xib */,
-				8497BE13174501EB007CBB53 /* PhotoViewController.h */,
-				8497BE14174501EB007CBB53 /* PhotoViewController.m */,
-				8497BE15174501EB007CBB53 /* PhotoViewController.xib */,
+				8497BE13174501EB007CBB53 /* AJPhotoViewController.h */,
+				8497BE14174501EB007CBB53 /* AJPhotoViewController.m */,
 				8497BE11174501EB007CBB53 /* AJZoomedImageSrollView.h */,
 				8497BE12174501EB007CBB53 /* AJZoomedImageSrollView.m */,
 			);
@@ -480,7 +491,6 @@
 				84605F0E173FC4B0004D69C0 /* right_arrow_white.png in Resources */,
 				84605F0F173FC4B0004D69C0 /* right_arrow_white@2x.png in Resources */,
 				8497BE17174501EB007CBB53 /* AJZoomedImageCollectionViewController.xib in Resources */,
-				8497BE1A174501EB007CBB53 /* PhotoViewController.xib in Resources */,
 				8497BE23174502AF007CBB53 /* AJImageCollectionViewController.xib in Resources */,
 				8497BE25174502AF007CBB53 /* AJImageContainer.xib in Resources */,
 			);
@@ -506,7 +516,7 @@
 				8497BE0B1743930A007CBB53 /* FBPhotoFactory.m in Sources */,
 				8497BE16174501EB007CBB53 /* AJZoomedImageCollectionViewController.m in Sources */,
 				8497BE18174501EB007CBB53 /* AJZoomedImageSrollView.m in Sources */,
-				8497BE19174501EB007CBB53 /* PhotoViewController.m in Sources */,
+				8497BE19174501EB007CBB53 /* AJPhotoViewController.m in Sources */,
 				8497BE22174502AF007CBB53 /* AJImageCollectionViewController.m in Sources */,
 				8497BE24174502AF007CBB53 /* AJImageContainer.m in Sources */,
 				8497BE89174D3D32007CBB53 /* AJImageView.m in Sources */,
@@ -523,6 +533,8 @@
 				841570F9175625E50061C4C9 /* UIButton+AJCache.m in Sources */,
 				841570FC175628D80061C4C9 /* AJDownloadManager.m in Sources */,
 				8499F320175D03D0006DD426 /* AJWindowOverlay.m in Sources */,
+				578C9A89175E7196007F1BDF /* UIImageView+AJProgress.m in Sources */,
+				57E70B651761036600189095 /* AJProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,7 +585,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -597,7 +609,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -613,6 +625,9 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ImageCollectionViewer/ImageCollectionViewer-Prefix.pch";
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				GCC_WARN_UNUSED_LABEL = NO;
+				GCC_WARN_UNUSED_PARAMETER = NO;
 				INFOPLIST_FILE = "ImageCollectionViewer/ImageCollectionViewer-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
@@ -630,6 +645,9 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ImageCollectionViewer/ImageCollectionViewer-Prefix.pch";
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				GCC_WARN_UNUSED_LABEL = NO;
+				GCC_WARN_UNUSED_PARAMETER = NO;
 				INFOPLIST_FILE = "ImageCollectionViewer/ImageCollectionViewer-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";

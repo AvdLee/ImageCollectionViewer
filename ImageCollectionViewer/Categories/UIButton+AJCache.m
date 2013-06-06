@@ -17,7 +17,6 @@
     if(url){
         [self setAlpha:0];
         __weak UIButton *wSelf = self;
-        
         [AJDownloadManager getImageFromURL:url success:^(UIImage *image) {
             [wSelf setImage:image forState:UIControlStateNormal];
             

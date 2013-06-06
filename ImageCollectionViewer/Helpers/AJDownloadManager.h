@@ -11,5 +11,6 @@
 @interface AJDownloadManager : NSObject
 
 + (void)getImageFromURL:(NSURL *)imageURL success:(void (^)(UIImage *image))success;
++ (void)getImageFromURL:(NSURL *)imageURL progressChange:(void (^)(float progress))progressChanged success:(void (^)(UIImage *image))success;
 
 @end

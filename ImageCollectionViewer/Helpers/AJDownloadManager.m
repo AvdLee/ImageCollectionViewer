@@ -12,7 +12,12 @@
 
 @implementation AJDownloadManager
 
+
 + (void)getImageFromURL:(NSURL *)imageURL success:(void (^)(UIImage *image))success {
+    [self getImageFromURL:imageURL progressChange:nil success:success];
+}
+
++ (void)getImageFromURL:(NSURL *)imageURL progressChange:(void (^)(float progress))progressChanged success:(void (^)(UIImage *image))success {
     // Check if item is in cache
     UIImage *cachedImage = [[AJCacheHelper sharedInstance] cachedImageForURL:imageURL];
     
@@ -24,6 +29,12 @@
     // Image is not cached, get it
     NSURLRequest *request = [NSURLRequest requestWithURL:imageURL];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    if(progressChanged){
+        [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+            progressChanged((float)totalBytesRead / totalBytesExpectedToRead);
+        }];
+    }
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         if(responseObject!= NULL){
@@ -39,10 +50,11 @@
         }
         
     } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
-
+        
     }];
     
     [operation start];
+
 }
 
 @end

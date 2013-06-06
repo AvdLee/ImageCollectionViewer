@@ -111,7 +111,7 @@
 
 #pragma mark - UIPageViewController methods
 - (void) buildPageController {
-    PhotoViewController *pageZero = [PhotoViewController photoViewControllerForImage:[_imageCollection.images objectAtIndex:currentPageIndex] pageIndex:currentPageIndex andZoomedImageSrollViewDelegate:self];
+    AJPhotoViewController *pageZero = [AJPhotoViewController photoViewControllerForImage:[_imageCollection.images objectAtIndex:currentPageIndex] pageIndex:currentPageIndex andZoomedImageSrollViewDelegate:self];
     
     if (pageZero != nil)
     {
@@ -141,24 +141,24 @@
     }
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pvc viewControllerBeforeViewController:(PhotoViewController *)vc
+- (UIViewController *)pageViewController:(UIPageViewController *)pvc viewControllerBeforeViewController:(AJPhotoViewController *)vc
 {
     if(vc.pageIndex == 0) return nil;
     
     NSUInteger newIndex = vc.pageIndex - 1;
     AJImage *image = [_imageCollection.images objectAtIndex:newIndex];
 
-    return [PhotoViewController photoViewControllerForImage:image pageIndex:newIndex andZoomedImageSrollViewDelegate:self];
+    return [AJPhotoViewController photoViewControllerForImage:image pageIndex:newIndex andZoomedImageSrollViewDelegate:self];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pvc viewControllerAfterViewController:(PhotoViewController *)vc
+- (UIViewController *)pageViewController:(UIPageViewController *)pvc viewControllerAfterViewController:(AJPhotoViewController *)vc
 {    
     NSUInteger newIndex = vc.pageIndex + 1;
 
     if(newIndex < [_imageCollection.images count]){
         AJImage *image = [_imageCollection.images objectAtIndex:newIndex];
 
-        return [PhotoViewController photoViewControllerForImage:image pageIndex:newIndex andZoomedImageSrollViewDelegate:self];
+        return [AJPhotoViewController photoViewControllerForImage:image pageIndex:newIndex andZoomedImageSrollViewDelegate:self];
     }
     return nil;
 }
@@ -166,7 +166,7 @@
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
     
     if(completed) {
-        currentPageIndex = [(PhotoViewController *)[pageViewController.viewControllers lastObject] pageIndex];
+        currentPageIndex = [(AJPhotoViewController *)[pageViewController.viewControllers lastObject] pageIndex];
         [zoomedImageCollectionDelegate zoomedImagePageViewControllerSwitchedToIndex:currentPageIndex];
         [self updateHeaderAndFooterForCurrentImage];
     }

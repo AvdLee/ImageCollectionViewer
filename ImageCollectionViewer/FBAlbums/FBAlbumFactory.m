@@ -25,7 +25,7 @@
     
     
     for (NSDictionary *album in albumsDict){
-        if([tempAlbumCollection.albums count] == 1) break;
+        if([tempAlbumCollection.albums count] == 2) break;
         FBAlbum *tempAlbum;
         if ((tempAlbum = [self createAlbumFor:album])){
             [tempAlbumCollection.albums addObject:tempAlbum];

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PhotoViewController.h"
+#import "AJPhotoViewController.h"
 #import "AJImageCollectionSettings.h"
 #import "AJImageCollection.h"
 

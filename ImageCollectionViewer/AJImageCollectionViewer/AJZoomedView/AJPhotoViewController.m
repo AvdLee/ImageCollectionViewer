@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Antoine van der Lee. All rights reserved.
 //
 
-#import "PhotoViewController.h"
+#import "AJPhotoViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface PhotoViewController ()
+@interface AJPhotoViewController ()
 {
     NSUInteger _pageIndex;
     AJImage *_image;
@@ -18,9 +18,9 @@
 }
 @end
 
-@implementation PhotoViewController
+@implementation AJPhotoViewController
 
-+ (PhotoViewController *)photoViewControllerForImage:(AJImage *)image pageIndex:(NSUInteger)pageIndex andZoomedImageSrollViewDelegate:(id)delegate
++ (AJPhotoViewController *)photoViewControllerForImage:(AJImage *)image pageIndex:(NSUInteger)pageIndex andZoomedImageSrollViewDelegate:(id)delegate
 {
     return [[self alloc] initWithImage:image pageIndex:pageIndex andZoomedImageSrollViewDelegate:delegate];
 }
@@ -42,9 +42,6 @@
     return _pageIndex;
 }
 
-- (void) viewDidAppear:(BOOL)animated {
-}
-
 - (void) animateImageIn {
     [_scrollView animateImageIn];
 }
@@ -58,11 +55,4 @@
     _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.view = _scrollView;
 }
-
-// (this can also be defined in Info.plist via UISupportedInterfaceOrientations)
-- (NSUInteger)supportedInterfaceOrientations
-{
-    return UIInterfaceOrientationMaskAllButUpsideDown;
-}
-
 @end

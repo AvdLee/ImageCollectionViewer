@@ -19,7 +19,6 @@
 @property (strong, nonatomic)   NSMutableDictionary *imageThumbsCollection;
 @property (strong, nonatomic)   AJZoomedImageCollectionViewController *zoomedImageCollectionViewController;
 
-
 #pragma mark - Functions
 - (id)initWithImageCollection:(AJImageCollection *)imageCollection;
 
